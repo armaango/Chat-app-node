@@ -21,15 +21,11 @@ socket.emit('newMessage',generateMessage('Admin','Welcome to the chat app'));
 socket.broadcast.emit('newMessage',generateMessage('Admin','New user joined'))
 
 
-socket.on('createMessage', (message)=>{
-    console.log('createMessage',message);
-    io.emit('newMessage',generateMessage(message.from,message.text));
-    // socket.broadcast.emit('newMessage', {
-    //     from:message.text,
-    //     text:messa.text,
-    //     createdAt: new Date().getTime()
-    // });
-});
+  socket.on('createMessage', (message, callback) => {
+    console.log('createMessage', message);
+    io.emit('newMessage', generateMessage(message.from, message.text));
+    callback('This is from the server.');
+  });
 
 socket.on('disconnect',()=>{
     console.log('Client disconnected');
